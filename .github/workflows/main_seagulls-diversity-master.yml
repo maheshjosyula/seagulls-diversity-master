@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -31,12 +31,12 @@ jobs:
           path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'seagulls-diversity-master'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A8F22642B1B74154A1BB6B7C821E1F3D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_302A94D7FC3048D8898F7C0BE7D715CB }}
           package: '*.jar'
